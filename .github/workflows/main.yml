@@ -23,3 +23,11 @@ jobs:
         with:
           name: my-artifact  
           path: target/
+      
+      - name: Upload to Jfrog Artifactory
+        env:
+          ARTIFACTORY_URL : ${{secrets.ARTIFACTORY_URL}}
+          ARTIFACTORY_API_KEY: ${{ secrets.ARTIFACTORY_API_KEY}}
+        run:  jfrog rt u "target/" "sample-project/"
+
+       
