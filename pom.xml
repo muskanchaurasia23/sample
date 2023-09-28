@@ -82,7 +82,7 @@
 
   </dependencies>
   <build>
-    <finalName>Assignment</finalName>
+    <finalName>sample-project</finalName>
     <pluginManagement>
   <plugins>
     <plugin>
