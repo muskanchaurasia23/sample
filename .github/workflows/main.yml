@@ -23,8 +23,9 @@ jobs:
         with:
           name: my-artifact  
           path: target/
-          
+
   download:
+    needs: build
     runs-on: ubuntu-latest
 
     steps:
@@ -35,6 +36,7 @@ jobs:
         uses: actions/download-artifact@v2
         with:
           name: my-artifact
+          path: target/
 
   upload:
     needs: download
@@ -53,6 +55,6 @@ jobs:
         env:
           ARTIFACTORY_URL : ${{secrets.ARTIFACTORY_URL}}
           ARTIFACTORY_API_KEY: ${{ secrets.ARTIFACTORY_API_KEY}}
-        run:  jfrog rt u "path/to/artifact.ext" "sample-project/"
+        run:  jfrog rt u "target/" "sample-project/"
 
        
