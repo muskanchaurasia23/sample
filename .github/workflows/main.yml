@@ -23,38 +23,34 @@ jobs:
         with:
           name: my-artifact  
           path: target/
-
-  download:
-    needs: build
-    runs-on: ubuntu-latest
-
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v2
-      
-      - name: Download Artifacts
-        uses: actions/download-artifact@v2
-        with:
-          name: my-artifact
-          path: target/
-
-  upload:
-    needs: download
-    runs-on: ubuntu-latest
-
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v2
-      
-      - name: Set up JFrog CLI
-        run: |
-          curl -fL https://getcli.jfrog.io | sh
-          export PATH=$PATH:$HOME/jfrog
-      
-      - name: Upload to Jfrog Artifactory
+          
+      - name: Run SonarQube Analysis
         env:
-          ARTIFACTORY_URL : ${{secrets.ARTIFACTORY_URL}}
-          ARTIFACTORY_API_KEY: ${{ secrets.ARTIFACTORY_API_KEY}}
-        run:  jfrog rt u "target/" "sample-project/"
+          SONARQUBE_URL: ${{secrets.SONARQUBE_URL}}
+          SONARQUBE_TOKEN: ${{secrets.SONARQUBE_TOKEN}}
+        run: |
+          mvn sonar:sonar -Dsonar.host.url="${SONARQUBE_URL}" -Dsonar.login="${SONARQUBE_TOKEN} -Dsonar.projectKey=Pipeline-jenkins -Dsonar.projectName=Sample-project"
+  
+
+  # upload:
+  #   needs: download
+  #   runs-on: ubuntu-latest
+
+  #   steps:
+  #     - name: Checkout code
+  #       uses: actions/checkout@v2
+      
+  #     # - name: Set up JFrog CLI
+  #     #   run: |
+  #     #     curl -fL https://getcli.jfrog.io | sh
+  #     #     export PATH=$PATH:$HOME/jfrog
+      
+  #     - name: Upload to Jfrog Artifactory
+  #       uses: jfrog/setup-jfrog-cli@v1
+  #       env:
+  #         ARTIFACTORY_URL : ${{secrets.ARTIFACTORY_URL}}
+  #         ARTIFACTORY_API_KEY: ${{ secrets.ARTIFACTORY_API_KEY}}
+  #       run:  jfrog rt u "target/" "sample-project/"
+      
 
        
