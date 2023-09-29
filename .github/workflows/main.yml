@@ -27,9 +27,10 @@ jobs:
       - name: Run SonarQube Analysis
         env:
           SONARQUBE_URL: ${{secrets.SONARQUBE_URL}}
-          SONARQUBE_TOKEN: ${{secrets.SONARQUBE_TOKEN}}
+          SONARQUBE_USERNAME: ${{secrets.SONARQUBE_USERNAME}}
+          SONARQUBE_PASSWORD: ${{secrets.SONARQUBE_PASSWORD}}
         run: |
-          mvn sonar:sonar -Dsonar.host.url="${SONARQUBE_URL}" -Dsonar.login="${SONARQUBE_TOKEN} -Dsonar.projectKey=Pipeline-jenkins -Dsonar.projectName=Sample-project"
+          mvn sonar:sonar -Dsonar.host.url="${SONARQUBE_URL}" -Dsonar.login="${SONARQUBE_USERNAME}:${SONARQUBE_PASSWORD}" -Dsonar.projectKey=Pipeline-jenkins -Dsonar.projectName=Sample-project"
   
 
   # upload:
