@@ -24,14 +24,12 @@ jobs:
           name: my-artifact  
           path: target/
           
-      - name: Run SonarQube Analysis
+      - name: Build and analyze
         env:
-          SONARQUBE_URL: ${{secrets.SONARQUBE_URL}}
-          SONARQUBE_USERNAME: ${{secrets.SONARQUBE_USERNAME}}
-          SONARQUBE_PASSWORD: ${{secrets.SONARQUBE_PASSWORD}}
-        run: |
-          mvn sonar:sonar -Dsonar.host.url="${SONARQUBE_URL}" -Dsonar.login="${SONARQUBE_USERNAME}:${SONARQUBE_PASSWORD}" -Dsonar.projectKey=Pipeline-jenkins -Dsonar.projectName=Sample-project
-  
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}  # Needed to get PR information, if any
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+          SONAR_HOST_URL: ${{ secrets.SONARQUBE_URL }}
+        run: mvn -B verify org.sonarsource.scanner.maven:sonar-maven-plugin:sonar -Dsonar.projectKey=sample-project
 
   # upload:
   #   needs: download
