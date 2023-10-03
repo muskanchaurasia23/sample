@@ -32,11 +32,21 @@ jobs:
             echo "Setting up JFrog CLI"
             curl -fL https://getcli.jfrog.io | sh
             export PATH=$PATH:$HOME/jfrog
+
             jfrog rt config --interactive=false --url="${ARTIFACTORY_URL}" --user="admin" --apikey="${ARTIFACTORY_API_KEY}" --interactive=false
-        
       
-      - name: Upload to Jfrog Artifactory
-        env:
-          ARTIFACTORY_URL : ${{secrets.ARTIFACTORY_URL}}
-          ARTIFACTORY_API_KEY: ${{ secrets.ARTIFACTORY_API_KEY}}
-        run:  jfrog rt u "path/to/artifact.ext" "sample-project/"
+      - name: Check JFrog CLI Installation
+        run: |
+              if ! command -v jfrog &> /dev/null
+              then
+                  echo "JFrog CLI is not installed"
+              else
+                  echo "JFrog CLI is installed"
+                  jfrog -v
+              fi
+      
+      # - name: Upload to Jfrog Artifactory
+      #   env:
+      #     ARTIFACTORY_URL : ${{secrets.ARTIFACTORY_URL}}
+      #     ARTIFACTORY_API_KEY: ${{ secrets.ARTIFACTORY_API_KEY}}
+      #   run:  jfrog rt u "path/to/artifact.ext" "sample-project/"
