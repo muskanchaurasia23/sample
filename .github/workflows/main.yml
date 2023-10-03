@@ -24,10 +24,11 @@ jobs:
           name: my-artifact  
           path: target/
       
-      - name: Set up JFrog CLI
+      - name: Install JFrog CLI
         run: |
-          curl -fL https://getcli.jfrog.io | sh
-          export PATH=$PATH:$HOME/jfrog
+            curl -fL https://getcli.jfrog.io | sh
+            echo 'export PATH=$PATH:$HOME/jfrog' >> $HOME/.bashrc
+        
       
       - name: Upload to Jfrog Artifactory
         env:
