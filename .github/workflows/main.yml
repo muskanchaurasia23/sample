@@ -28,10 +28,17 @@ jobs:
         uses: jfrog/setup-jfrog-cli@v1
         with:
             jfrog-cli-version: 'latest' # You can specify a specific version if needed
+        
+      
+      - name: Configure JFrog CLI
         env:
-            ARTIFACTORY_URL: ${{ secrets.ARTIFACTORY_URL }}
-            ARTIFACTORY_USERNAME: ${{ secrets.ARTIFACTORY_USERNAME }}
-            ARTIFACTORY_API_KEY: ${{ secrets.ARTIFACTORY_API_KEY }}
+          ARTIFACTORY_URL: ${{ secrets.ARTIFACTORY_URL }}
+          ARTIFACTORY_USERNAME: ${{ secrets.ARTIFACTORY_USERNAME }}
+          ARTIFACTORY_API_KEY: ${{ secrets.ARTIFACTORY_API_KEY }}
+        run: |
+              echo "Setting up JFrog CLI"
+              jfrog rt config --url="${ARTIFACTORY_URL}" --user="admin" --apikey="${ARTIFACTORY_API_KEY}" --interactive=false
+    
   
       - name: Build with Maven
         run: mvn clean install
