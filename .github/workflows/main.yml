@@ -32,8 +32,6 @@ jobs:
             echo "Setting up JFrog CLI"
             curl -fL https://getcli.jfrog.io | sh
             export PATH=$PATH:$HOME/jfrog
-
-            jfrog rt config --interactive=false --url="${ARTIFACTORY_URL}" --user="admin" --apikey="${ARTIFACTORY_API_KEY}" --interactive=false
       
       - name: Check JFrog CLI Installation
         run: |
