@@ -5,46 +5,38 @@ on:
     branches:
       - main 
 jobs:
-  build:
+  buildbuild_and_upload:
     runs-on: ubuntu-latest
 
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
 
+      # - name: Build with Maven
+      #   run: mvn clean install
+
+      # - name: Run Unit test case
+      #   run: mvn test
+
+      # - name: Archive Artifacts
+      #   uses: actions/upload-artifact@v2
+      #   with:
+      #     name: my-artifact  
+      #     path: target/
+      
+      - name: Install and Configure JFrog CLI
+        uses: jfrog/setup-jfrog-cli@v1
+        with:
+            jfrog-cli-version: 'latest' # You can specify a specific version if needed
+        env:
+            ARTIFACTORY_URL: ${{ secrets.ARTIFACTORY_URL }}
+            ARTIFACTORY_USERNAME: ${{ secrets.ARTIFACTORY_USERNAME }}
+            ARTIFACTORY_API_KEY: ${{ secrets.ARTIFACTORY_API_KEY }}
+  
       - name: Build with Maven
         run: mvn clean install
-
-      - name: Run Unit test case
-        run: mvn test
-
-      - name: Archive Artifacts
-        uses: actions/upload-artifact@v2
-        with:
-          name: my-artifact  
-          path: target/
-      
-      - name: Configure JFrog CLI
-        env:
-          ARTIFACTORY_URL : ${{secrets.ARTIFACTORY_URL}}
-          ARTIFACTORY_API_KEY: ${{ secrets.ARTIFACTORY_API_KEY}}
+  
+      - name: Upload Artifacts to Artifactory
         run: |
-            echo "Setting up JFrog CLI"
-            curl -fL https://getcli.jfrog.io | sh
-            export PATH=$PATH:$HOME/jfrog
-      
-      - name: Check JFrog CLI Installation
-        run: |
-              if ! command -v jfrog &> /dev/null
-              then
-                  echo "JFrog CLI is not installed"
-              else
-                  echo "JFrog CLI is installed"
-                  jfrog -v
-              fi
-      
-      # - name: Upload to Jfrog Artifactory
-      #   env:
-      #     ARTIFACTORY_URL : ${{secrets.ARTIFACTORY_URL}}
-      #     ARTIFACTORY_API_KEY: ${{ secrets.ARTIFACTORY_API_KEY}}
-      #   run:  jfrog rt u "path/to/artifact.ext" "sample-project/"
+            echo "Uploading artifacts to Artifactory"
+            jfrog rt u "path/to/artifact.ext" "sample-project/"
