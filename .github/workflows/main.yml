@@ -23,35 +23,27 @@ jobs:
         with:
           name: my-artifact  
           path: target/
-       
-      - name: Jfrog Artifactory
-        uses: jfrog/setup-jfrog-cli@v3
-        env:
-          JF_URL: ${{ secrets.JF_URL }}
-          JF_ACCESS_TOKEN: ${{ secrets.JF_ACCESS_TOKEN }}
       
-      - name: Artifactory Ping
-        env:
-          ARTIFACTORY_URL: ${{ secrets.ARTIFACTORY_URL }}
-          ARTIFACTORY_API_KEY: ${{ secrets.ARTIFACTORY_API_KEY }}
+      - name: Display Workflow Information
         run: |
-          jf rt u "(*).(*)" sample-project --url="${ARTIFACTORY_URL}"
+          echo "Workflow Run ID: $GITHUB_RUN_ID"
+          echo "Workflow Run Number: $GITHUB_RUN_NUMBER"
+          echo "Workflow Name: $GITHUB_WORKFLOW"
+          echo "Repository: $GITHUB_REPOSITORY"
+          echo "Commit SHA: $GITHUB_SHA"
+          echo "Triggering Event: $GITHUB_EVENT_NAME"
+          echo "workspace directory : $GITHUB_WORKSPACE"
+       
+      # - name: Jfrog Artifactory
+      #   uses: jfrog/setup-jfrog-cli@v3
+      #   env:
+      #     JF_URL: ${{ secrets.JF_URL }}
+      #     JF_ACCESS_TOKEN: ${{ secrets.JF_ACCESS_TOKEN }}
       
-      # - name: Configure JFrog CLI
+      # - name: Artifactory Ping
       #   env:
       #     ARTIFACTORY_URL: ${{ secrets.ARTIFACTORY_URL }}
-      #     ARTIFACTORY_USERNAME: ${{ secrets.ARTIFACTORY_USERNAME }}
       #     ARTIFACTORY_API_KEY: ${{ secrets.ARTIFACTORY_API_KEY }}
       #   run: |
-      #         echo "Setting up JFrog CLI"
-      #         jfrog rt config --url="${ARTIFACTORY_URL}" --user="admin" --apikey="${ARTIFACTORY_API_KEY}" --interactive=false
-      #         jfrog config add  --artifactory-url=<artifactory-url>"
-    
-  
-      # - name: Build with Maven
-      #   run: mvn clean install
-  
-      # - name: Upload Artifacts to Artifactory
-      #   run: |
-      #       echo "Uploading artifacts to Artifactory"
-      #       jfrog rt u "path/to/artifact.ext" "sample-project/"
+      #     jf rt u "(*).(*)" sample-project --url="${ARTIFACTORY_URL}"
+      
