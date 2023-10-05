@@ -35,7 +35,7 @@ jobs:
           ARTIFACTORY_URL: ${{ secrets.ARTIFACTORY_URL }}
           ARTIFACTORY_API_KEY: ${{ secrets.ARTIFACTORY_API_KEY }}
         run: |
-          jf rt u "(*).(*)" sample-project/ --url="${ARTIFACTORY_URL}"
+          jf rt u "(*).(*)" sample-project --url="${ARTIFACTORY_URL}"
       
       # - name: Configure JFrog CLI
       #   env:
