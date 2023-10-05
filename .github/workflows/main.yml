@@ -33,6 +33,8 @@ jobs:
           echo "Commit SHA: $GITHUB_SHA"
           echo "Triggering Event: $GITHUB_EVENT_NAME"
           echo "workspace directory : $GITHUB_WORKSPACE"
+          echo "Artifact ID: $GITHUB_ARTIFACTS_ID"
+          echo "Check suite ID: $GITHUB_CHECK_SUITES_ID"
        
       # - name: Jfrog Artifactory
       #   uses: jfrog/setup-jfrog-cli@v3
