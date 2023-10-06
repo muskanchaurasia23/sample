@@ -33,7 +33,7 @@ jobs:
           echo "Commit SHA: $GITHUB_SHA"
           echo "Triggering Event: $GITHUB_EVENT_NAME"
           echo "workspace directory : $GITHUB_WORKSPACE"
-          echo "Artifact ID: $GITHUB_ARTIFACTS_ID"
+          echo "Artifact ID: $ARTIFACTS_ID"
           echo "Check suite ID: $GITHUB_CHECK_SUITES_ID"
       
       - name: Docker Login 
@@ -42,12 +42,12 @@ jobs:
              username: ${{ secrets.DOCKER_USERNAME }}
              password: ${{ secrets.DOCKER_PASSWORD }}
 
-      - name: Build and Push Docker image
-        run: |
-             docker build -t "${DOCKER_USERNAME}/sample-project:latest" .
-             docker push "${DOCKER_USERNAME}/sample-project:latest"   
-        env:
-             DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
+      # - name: Build and Push Docker image
+      #   run: |
+      #        docker build -t "${DOCKER_USERNAME}/sample-project:latest" .
+      #        docker push "${DOCKER_USERNAME}/sample-project:latest"   
+      #   env:
+      #        DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
        
       # - name: Jfrog Artifactory
       #   uses: jfrog/setup-jfrog-cli@v3
