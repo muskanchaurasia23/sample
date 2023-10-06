@@ -39,7 +39,7 @@ jobs:
           path: target
       
       - name : verify steps
-        run: cd $GITHUB_WORKSPACE
+        run: cd $GITHUB_WORKSPACE/target
              ls
       
       - name: Display Workflow Information
