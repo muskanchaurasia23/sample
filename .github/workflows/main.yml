@@ -24,23 +24,22 @@ jobs:
       #     name: my-artifact  
       #     path: target/
       
-      - name: Upload artifacts
-        uses: actions/upload-artifact@v3
-        with:
-          name: sample.war
-          path: target/*.war
+      # - name: Upload artifacts
+      #   uses: actions/upload-artifact@v3
+      #   with:
+      #     name: sample.war
+      #     path: target/*.war
 
  
 
-      - name: Download Artifacts
-        uses: actions/download-artifact@v2
-        with:
-          name: sample.war
-          path: target
+      # - name: Download Artifacts
+      #   uses: actions/download-artifact@v2
+      #   with:
+      #     name: sample.war
+      #     path: target
       
       - name : verify steps
-        run: cd $GITHUB_WORKSPACE/target
-             ls
+        run: ls -la target
       
       - name: Display Workflow Information
         run: |
