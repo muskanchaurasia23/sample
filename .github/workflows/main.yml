@@ -18,35 +18,25 @@ jobs:
       - name: Run Unit test case
         run: mvn test
 
-      - name: Archive Artifacts
-        uses: actions/upload-artifact@v2
+      # - name: Archive Artifacts
+      #   uses: actions/upload-artifact@v2
+      #   with:
+      #     name: my-artifact  
+      #     path: target/
+      
+      - name: Upload artifacts
+        uses: actions/upload-artifact@v3
         with:
-          name: my-artifact  
-          path: target/
-      
-      - name: Get GitHub API Data
-        run: |
-          API_URL="https://api.github.com/repos/muskanchaurasia23/sample"
-          curl -sSL -o api_response.json $API_URL
-      
-      - name: Parse JSON Data
-        run: |
-            # Install jq if it's not available
-            if ! command -v jq &> /dev/null; then
-                sudo apt-get update
-                sudo apt-get install -y jq
-            fi
+          name: sample-Project.war
+          path: target/*.war
 
-            # Parse the JSON data and store specific fields in environment variables
-            owner_name=$(jq -r '.owner.id' api_response.json)
-            repo_name=$(jq -r '.name' api_response.json)
+ 
 
-            echo "Owner: $owner_name"
-            echo "Repository: $repo_name"
-            # artifact_id = $(jq -r '.artifacts[0].id' api_response.json)
-            # echo "Arifact ID: $artifact_id"
-
-
+      - name: Download Artifacts
+        uses: actions/download-artifact@v2
+        with:
+          name: sample-Project.war
+          path: target
 
       
       - name: Display Workflow Information
@@ -67,23 +57,11 @@ jobs:
              username: ${{ secrets.DOCKER_USERNAME }}
              password: ${{ secrets.DOCKER_PASSWORD }}
 
-      # - name: Build and Push Docker image
-      #   run: |
-      #        docker build -t "${DOCKER_USERNAME}/sample-project:latest" .
-      #        docker push "${DOCKER_USERNAME}/sample-project:latest"   
-      #   env:
-      #        DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
+      - name: Build and Push Docker image
+        run: |
+             docker build -t "${DOCKER_USERNAME}/sample-project:latest" .
+             docker push "${DOCKER_USERNAME}/sample-project:latest"   
+        env:
+             DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
        
-      # - name: Jfrog Artifactory
-      #   uses: jfrog/setup-jfrog-cli@v3
-      #   env:
-      #     JF_URL: ${{ secrets.JF_URL }}
-      #     JF_ACCESS_TOKEN: ${{ secrets.JF_ACCESS_TOKEN }}
-      
-      # - name: Artifactory Ping
-      #   env:
-      #     ARTIFACTORY_URL: ${{ secrets.ARTIFACTORY_URL }}
-      #     ARTIFACTORY_API_KEY: ${{ secrets.ARTIFACTORY_API_KEY }}
-      #   run: |
-      #     jf rt u "(*).(*)" sample-project --url="${ARTIFACTORY_URL}"
       
