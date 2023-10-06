@@ -43,7 +43,7 @@ jobs:
 
             # echo "Owner: $owner_name"
             # echo "Repository: $repo_name"
-            artifact_id = $(jq -r '.artifacts.id' api_response.json)
+            artifact_id = $(jq -r '.artifacts[0].id' api_response.json)
             echo "Arifact ID: $artifact_id"
 
 
