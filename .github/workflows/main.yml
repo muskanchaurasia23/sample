@@ -38,13 +38,13 @@ jobs:
             fi
 
             # Parse the JSON data and store specific fields in environment variables
-            # owner_name=$(jq -r '.owner.login' api_response.json)
-            # repo_name=$(jq -r '.name' api_response.json)
+            owner_name=$(jq -r '.owner.id' api_response.json)
+            repo_name=$(jq -r '.name' api_response.json)
 
-            # echo "Owner: $owner_name"
-            # echo "Repository: $repo_name"
-            artifact_id = $(jq -r '.artifacts[0].id' api_response.json)
-            echo "Arifact ID: $artifact_id"
+            echo "Owner: $owner_name"
+            echo "Repository: $repo_name"
+            # artifact_id = $(jq -r '.artifacts[0].id' api_response.json)
+            # echo "Arifact ID: $artifact_id"
 
 
 
