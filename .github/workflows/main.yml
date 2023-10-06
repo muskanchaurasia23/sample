@@ -26,7 +26,7 @@ jobs:
       
       - name: Get GitHub API Data
         run: |
-          API_URL="https://api.github.com/repos/muskanchaurasia23/sample/actions/artifacts"
+          API_URL="https://api.github.com/repos/muskanchaurasia23/sample"
           curl -sSL -o api_response.json $API_URL
       
       - name: Parse JSON Data
