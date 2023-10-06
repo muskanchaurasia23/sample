@@ -27,7 +27,7 @@ jobs:
       - name: Upload artifacts
         uses: actions/upload-artifact@v3
         with:
-          name: sample-Project.war
+          name: sample.war
           path: target/*.war
 
  
@@ -35,7 +35,7 @@ jobs:
       - name: Download Artifacts
         uses: actions/download-artifact@v2
         with:
-          name: sample-Project.war
+          name: sample.war
           path: target
 
       
