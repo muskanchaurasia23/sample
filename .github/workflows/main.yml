@@ -39,7 +39,7 @@ jobs:
           path: target
       
       - name : verify steps
-        run: ls -la target
+        run: ls -a target
       
       - name: Display Workflow Information
         run: |
