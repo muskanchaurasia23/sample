@@ -50,10 +50,8 @@ jobs:
           echo "Commit SHA: $GITHUB_SHA"
           echo "Triggering Event: $GITHUB_EVENT_NAME"
           echo "workspace directory : $GITHUB_WORKSPACE"
-          echo "Artifact ID: $ARTIFACTS_ID"
-          echo "Check suite ID: $GITHUB_CHECK_SUITES_ID"
-          RUNNER_IP = ip a
-          echo "Runner IP: $RUNNER_IP"
+
+  
       
       - name: Docker Login 
         uses: docker/login-action@v3
