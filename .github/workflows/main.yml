@@ -61,7 +61,7 @@ jobs:
 
       - name: Build and Push Docker image
         run: |
-             docker build -t "${DOCKER_USERNAME}/sample-project:latest ${DOCKER_USERNAME}/sample-project:$GITHUB_RUN_ID"
+             docker build -t "${DOCKER_USERNAME}/sample-project:latest" "${DOCKER_USERNAME}/sample-project:$GITHUB_RUN_ID"
              docker push "${DOCKER_USERNAME}/sample-project:latest"   
         env:
              DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
