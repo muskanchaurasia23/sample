@@ -71,6 +71,7 @@ jobs:
         env:
              DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
         run: |
+          docker ps -a
           docker run -d -p 8080:80 --name my-container ${DOCKER_USERNAME}/sample-project:latest  
        
       
