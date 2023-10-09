@@ -52,7 +52,7 @@ jobs:
           echo "workspace directory : $GITHUB_WORKSPACE"
           echo "Artifact ID: $ARTIFACTS_ID"
           echo "Check suite ID: $GITHUB_CHECK_SUITES_ID"
-          RUNNER_IP=$(curl -s ifconfig.co)
+          RUNNER_IP = ip a
           echo "Runner IP: $RUNNER_IP"
       
       - name: Docker Login 
