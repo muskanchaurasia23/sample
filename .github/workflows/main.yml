@@ -69,8 +69,6 @@ jobs:
       
       - name: Run Docker Container
         run: |
-          docker run -d --name my-container \
-            -p 8080:80 \ 
-            sample-project:latest  
+          docker run -d  -p 8080:80 --name my-container sample-project:latest  
        
       
