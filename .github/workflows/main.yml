@@ -68,7 +68,9 @@ jobs:
              DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
       
       - name: Run Docker Container
+        env:
+             DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
         run: |
-          docker run -d  -p 8080:80 --name my-container sample-project:latest  
+          docker run -d -p 8080:80 --name my-container ${DOCKER_USERNAME}/sample-project:latest  
        
       
