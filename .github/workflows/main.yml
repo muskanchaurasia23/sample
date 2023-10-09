@@ -50,7 +50,8 @@ jobs:
           echo "Commit SHA: $GITHUB_SHA"
           echo "Triggering Event: $GITHUB_EVENT_NAME"
           echo "workspace directory : $GITHUB_WORKSPACE"
-          echo ${{ runner.ip }}
+          curl https://api.ipify.org
+
 
 
   
