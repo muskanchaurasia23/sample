@@ -66,5 +66,11 @@ jobs:
              docker push "${DOCKER_USERNAME}/sample-project:$GITHUB_RUN_NUMBER"
         env:
              DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
+      
+      - name: Run Docker Container
+        run: |
+          docker run -d --name my-container \
+            -p 8080:80 \ 
+            sample-project:latest  
        
       
