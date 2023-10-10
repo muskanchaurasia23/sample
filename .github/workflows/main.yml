@@ -6,7 +6,7 @@ on:
       - main 
 jobs:
   build_and_upload:
-    runs-on: ubuntu-latest
+    runs-on: self
 
     steps:
       - name: Checkout code
@@ -50,10 +50,6 @@ jobs:
           echo "Commit SHA: $GITHUB_SHA"
           echo "Triggering Event: $GITHUB_EVENT_NAME"
           echo "workspace directory : $GITHUB_WORKSPACE"
-          curl https://api.ipify.org
-
-
-
   
       
       - name: Docker Login 
