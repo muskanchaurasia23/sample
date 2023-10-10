@@ -6,7 +6,7 @@ on:
       - main 
 jobs:
   build_and_upload:
-    runs-on: self
+    runs-on: [self-hosted , "self"]
 
     steps:
       - name: Checkout code
